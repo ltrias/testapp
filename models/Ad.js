@@ -9,6 +9,10 @@ class Ad{
         }
 
         this.type = type;
+
+        if(value < 0){
+            throw 'Illegal ad value: ' + value;
+        }
         this.value = value;
     }
 }
@@ -16,3 +20,5 @@ class Ad{
 function valid(type){
     return VALID_TYPES.findIndex(type.toLowerCase()) == -1;
 }
+
+module.exports = Ad;

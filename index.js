@@ -1,30 +1,16 @@
 "use strict"
 var express = require('express');
 var app = express();
+var controllers = {};
+var port = process.env.PORT || 9999;
 
-var port = getPortFromCommandLine() || 9999;
+var CheckoutController = require('./controllers/CheckoutController');
+controllers['checkout'] = new CheckoutController();
 
-
-app.get('/', function(req, res){
-    res.send('Oi Tábata <3');
+app.get('/checkout', function(req, res){
+    controllers['checkout'].handle(req, res);
 });
 
 app.listen(port, function(){
     console.log('Started at ' + port);
 })
-
-function getPortFromCommandLine(){
-    let result = null;
-
-    let param = process.argv.slice(2,3);
-    
-    if( param  ){
-        param = Number.parseInt(param, 10) 
-
-        if( !Number.isNaN(param) &&  param > 1024 && param < 65535 ){
-            result = param;
-        }
-    }
-
-    return result;
-}
