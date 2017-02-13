@@ -11,8 +11,9 @@ class CheckoutController{
             return;
         }
 
+        let chk = null;
         try{
-            let chk = this.validateData(req.body);
+            chk = this.validateData(req.body);
         }catch(e){
             res.status(400).send(e);
             return;
@@ -55,7 +56,6 @@ class CheckoutController{
 
     calculateTotal(chk){
         let total = 0;
-        let customerSpecialConditions = Config.specialConditions[chk.customer];
         let adsByType = {};
 
         chk.ads.map((ad) => {
@@ -64,19 +64,26 @@ class CheckoutController{
             if( !currentAds ){
                 adsByType[ad.type] = [ad];
             }else{
-                currentAds.concat(ad);
+                currentAds = currentAds.concat(ad);
+                adsByType[ad.type] = currentAds;
             }
         });
 
-        adsByType.forEach((key, value) => {
-            let specialCondition = Config.specialConditions[key];
+        let specialConditions = Config.specialConditions[chk.customer];
+
+        for(let key of Object.keys(adsByType)){
+            let specialCondition = null;
+
+            if( specialConditions ){
+                specialCondition = specialConditions[key];
+            }
 
             if( specialCondition ){
-                total += specialCondition.calculateValue(value, Config.basePrices[key]);
+                total += specialCondition.calculateValue(adsByType[key], Config.basePrices[key]);
             }else{
-                total += value.length * Config.basePrices[key];
+                total += adsByType[key].length * Config.basePrices[key];
             }
-        });
+        }
 
         chk.total = total;
     }

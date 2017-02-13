@@ -1,4 +1,7 @@
 CheckoutController = require('../../controllers/CheckoutController');
+Checkout = require('../../models/Checkout');
+Ad = require('../../models/Ad');
+Config = require('../../config/Config');
 
 let controller = new CheckoutController();
 
@@ -43,18 +46,41 @@ test('Successful data validation',() => {
     });
 });
 
-// test('',() => {
-    
-// });
+test('Calculate total without special conditions',() => {
+    let chk = createCheckout('common client', 'classic', 'classic', 'standout');
+    controller.calculateTotal(chk);
 
-// test('',() => {
-    
-// });
+    expect(chk.total).toBe(862.97);
+});
 
-// test('',() => {
-    
-// });
+test('Calculate total with special conditions',() => {
+    let chk = createCheckout('unilever', 'classic', 'classic', 'classic', 'classic');
+    controller.calculateTotal(chk);
 
-// test('',() => {
-    
-// });
+    expect(chk.total).toBe(809.97);
+});
+
+test('Calculate total with special and common conditions',() => {
+    let chk = createCheckout('unilever', 'classic', 'classic', 'classic', 'classic', 'standout');
+    controller.calculateTotal(chk);
+
+    expect(chk.total).toBe(1132.96);
+});
+
+test('Calculate total with mixed special conditions',() => {
+    let chk = createCheckout('ford', 'classic', 'classic', 'classic', 'classic', 'classic', 'classic', 'standout', 'premium', 'premium', 'premium');
+    controller.calculateTotal(chk);
+
+    expect(chk.total).toBe(2829.91);
+});
+
+function createCheckout(customer){
+    let result = new Checkout(customer);
+    let ads = Array.from(arguments).slice(1);
+
+    for(let ad of ads){
+        result.addAd(new Ad(ad, Config.basePrices[ad]));
+    }
+
+    return result;
+}

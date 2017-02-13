@@ -16,7 +16,7 @@ class PriceDropCommercialCondition{
 
         let result = 0;
 
-        if( ads.length > this.minimumItems){
+        if( ads.length >= this.minimumItems){
             result = this.newPrice * ads.length;
         }else{
             result = originalPrice * ads.length;
