@@ -6,19 +6,24 @@ let Config = require('../config/Config')
 
 class CheckoutController{
     handle(req, res){
+        console.log('Checkout request received');
+
         if( !req.is('json') ){
             res.sendStatus(415);
             return;
         }
 
+        console.log('Content-type is valid');
+
         let chk = null;
         try{
             chk = this.validateData(req.body);
+            console.log('Request data is valid: ' + JSON.stringify(chk));
         }catch(e){
             res.status(400).send(e);
             return;
         }
-
+        
         this.calculateTotal(chk);
 
         res.send(JSON.stringify(chk));
@@ -86,6 +91,7 @@ class CheckoutController{
         }
 
         chk.total = total;
+        console.log('Calculated checkout total: ' + chk.total);
     }
 }
 
