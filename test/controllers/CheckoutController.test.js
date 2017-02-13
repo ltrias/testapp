@@ -25,3 +25,36 @@ test('Try to checkout with empty ads', () => {
         controller.validateData({"customer":"customer", "ads":[]});
     }).toThrow(/Must have ads/);
 });
+
+test('Successful data validation',() => {
+    expect(controller.validateData({'customer':'customer', 'ads':['classic', 'standout']})).toMatchObject({
+        'customer':'customer',
+        'total': 0,
+        'ads':[
+            {
+                'type':'classic',
+                'value': 269.99
+            },
+            {
+                'type':'standout',
+                'value': 322.99
+            }
+        ]
+    });
+});
+
+// test('',() => {
+    
+// });
+
+// test('',() => {
+    
+// });
+
+// test('',() => {
+    
+// });
+
+// test('',() => {
+    
+// });

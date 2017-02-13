@@ -7,16 +7,8 @@ class Checkout{
         this.total = 0.0;
     }
 
-    addAd(ads){
-        this.ads.concat(ad);
-    }
-
-    set total(total){
-        this.total = total;
-    }
-
-    get total(){
-        return total;
+    addAd(ad){
+        this.ads = this.ads.concat(ad);
     }
 }
 

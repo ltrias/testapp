@@ -19,7 +19,7 @@ class Ad{
 }
 
 function valid(type){
-    return VALID_TYPES.indexOf(type.toLowerCase()) != -1;
+    return type && VALID_TYPES.indexOf(type.toLowerCase()) != -1;
 }
 
 module.exports = Ad;

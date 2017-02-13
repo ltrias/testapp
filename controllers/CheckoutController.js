@@ -1,5 +1,6 @@
 "use strict"
 
+let Ad = require('../models/Ad')
 let Checkout = require('../models/Checkout');
 let Config = require('../config/Config')
 
@@ -30,13 +31,13 @@ class CheckoutController{
 
         if( !customer || customer.length < 1 ){
             valid = false;
-            error += "Must have a customer\n"
+            error += "Must have a customer\n";
         }
 
         let ads = body.ads;
         if( !ads || ads.length < 1 ){
             valid = false;
-            error += "Must have ads\n"
+            error += "Must have ads\n";
         }
    
         if( !valid ){
@@ -46,7 +47,7 @@ class CheckoutController{
         let result = new Checkout(customer);
 
         for(let ad of ads){
-            result.addAd(new Ad(ad.type, Config.basePrices[ad.type]))
+            result.addAd(new Ad(ad, Config.basePrices[ad]));
         }
 
         return result;
