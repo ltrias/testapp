@@ -1,5 +1,8 @@
 "use strict"
 
+/**
+ * Represents a commercial condition where the unit cost of ads are lowered if more than a specific amount of ads is acquired
+ */
 class PriceDropCommercialCondition{
     constructor(minimumItems, newPrice){
         if( minimumItems < 0 ){
@@ -9,6 +12,9 @@ class PriceDropCommercialCondition{
         this.newPrice = newPrice;
     }
 
+    /**
+     * Calculates the final value of the ad set considering the original ad value and the amount of ads acquired 
+     */
     calculateValue(ads, originalPrice){
         if( Number.isNaN(Number.parseFloat(originalPrice)) || originalPrice < 0 ){
             throw "Invalid originalPrice: " + originalPrice;

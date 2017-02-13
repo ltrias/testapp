@@ -4,6 +4,9 @@ let Ad = require('../models/Ad')
 let Checkout = require('../models/Checkout');
 let Config = require('../config/Config')
 
+/**
+ * Handles checkout requests
+ */
 class CheckoutController{
     handle(req, res){
         console.log('Checkout request received');
@@ -29,6 +32,9 @@ class CheckoutController{
         res.send(JSON.stringify(chk));
     }
 
+    /**
+     * Converts the body of the request into a Checkout object, validating the input data
+     */
     validateData(body){
         let valid = true;
         let error = "";
@@ -59,6 +65,11 @@ class CheckoutController{
         return result;
     }
 
+    /**
+     * Calculates the total value of the checkout according to special commercial conditions.
+     * 
+     * The value is updated in the Checkout object itfself.
+     */
     calculateTotal(chk){
         let total = 0;
         let adsByType = {};

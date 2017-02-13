@@ -1,5 +1,8 @@
 "use strict"
 
+/**
+ * Represent a commercial condition where N have the price of M ads, usually M < N 
+ */
 class NByMCommercialCondition{
     constructor(n, m){
         if( !Number.isInteger(n) || !Number.isInteger(m) || n <= 0 || m <= 0 ){
@@ -9,6 +12,9 @@ class NByMCommercialCondition{
         this.m = m;
     }
 
+    /**
+     * Calculates the final value of the ad set considering the original ad value and commercial condition configuration 
+     */
     calculateValue(ads, originalPrice){
         if( Number.isNaN(Number.parseFloat(originalPrice)) || originalPrice < 0 ){
             throw "Invalid originalPrice: " + originalPrice;
