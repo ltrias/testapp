@@ -5,7 +5,7 @@ const VALID_TYPES = ['classic', 'standout', 'premium'];
 class Ad{
     constructor(type, value){
         if( !valid(type) ){
-            throw 'Unkown ad type: ' + type;
+            throw 'Unknown ad type: ' + type;
         }
 
         this.type = type;
@@ -13,12 +13,13 @@ class Ad{
         if(value < 0){
             throw 'Illegal ad value: ' + value;
         }
+
         this.value = value;
     }
 }
 
 function valid(type){
-    return VALID_TYPES.findIndex(type.toLowerCase()) == -1;
+    return VALID_TYPES.indexOf(type.toLowerCase()) != -1;
 }
 
 module.exports = Ad;

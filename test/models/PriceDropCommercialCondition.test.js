@@ -3,19 +3,19 @@ PriceDropCommercialCondition = require('../../models/PriceDropCommercialConditio
 test('Tryes to create condition with negative minimum itens ', () => {
     expect(() => {
         new PriceDropCommercialCondition(-1, 10.00);
-    }).toThrow();
+    }).toThrow('Minimum itens can not be negative: -1');
 });
 
 test('Calculate value with invalid original price', () => {
     expect(() => {
-        new PriceDropCommercialCondition(5, 10.00).calculateValue([], -100.00);
-    }).toThrow();
+        new PriceDropCommercialCondition(5, 10.00).calculateValue([], -100);
+    }).toThrow('Invalid originalPrice: -100');
 });
 
 test('Calculate value with null original price', () => {
     expect(() => {
         new PriceDropCommercialCondition(5, 10.00).calculateValue([], null);
-    }).toThrow();
+    }).toThrow('Invalid originalPrice: null');
 });
 
 test('Calculate value with empty ads', () => {

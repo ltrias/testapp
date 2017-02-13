@@ -3,25 +3,26 @@ NByMCommercialCondition = require('../../models/NByMCommercialCondition');
 test('Tryes to create condition with negative n ', () => {
     expect(() => {
         new NByMCommercialCondition(-1, 5);
-    }).toThrow();
+    }).toThrow("Both M and N must be positive integers but were 5 and -1");
 });
 
 test('Tryes to create condition with negative m ', () => {
     expect(() => {
         new NByMCommercialCondition(2, -3);
-    }).toThrow();
+    }).toThrow("Both M and N must be positive integers but were -3 and 2");
 });
 
 test('Calculate value with invalid original price', () => {
+    
     expect(() => {
-        new NByMCommercialCondition(3, 2).calculateValue([], -100.00);
-    }).toThrow();
+        new NByMCommercialCondition(3, 2).calculateValue([], -100)
+    }).toThrow("Invalid originalPrice: -100");
 });
 
 test('Calculate value with null original price', () => {
-    expect(() => {
-        new NByMCommercialCondition(3, 2).calculateValue([], null);
-    }).toThrow();
+    expect(()=>{
+        new NByMCommercialCondition(3, 2).calculateValue([], null)
+    }).toThrow("Invalid originalPrice: null");
 });
 
 test('Calculate value with equal n and m', () => {

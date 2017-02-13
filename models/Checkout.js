@@ -3,25 +3,20 @@
 class Checkout{
     constructor(customer){
         this.customer = customer;
-        this.offers = [];
+        this.ads = [];
+        this.total = 0.0;
     }
 
-    addOffer(offer){
-        this.offers.concat(offer);
+    addAd(ads){
+        this.ads.concat(ad);
     }
 
-    totalValue(){
-        let result = 0.0;
-
-        for(let offer of this.offers){
-            result += offer.getCommercialValue();
-        }
-
-        return result;
+    set total(total){
+        this.total = total;
     }
 
-    toString(){
-        return "Checkout of " + this.customer + " with value " + this.totalValue();
+    get total(){
+        return total;
     }
 }
 
