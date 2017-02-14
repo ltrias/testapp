@@ -1,0 +1,4 @@
+{
+    "testPathIgnorePatterns":["node_modules"],
+    "testRegex": "app-running.test.js"
+}

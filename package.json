@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "jest":{
+    "testPathIgnorePatterns":["node_modules", "app-running"]
+  },
   "scripts": {
     "start": "node index.js",
     "test": "jest",
-    "test-app-running": "jest test/app-running/test.js"
+    "test-app-running": "jest --config app-running_config.json"
   },
   "repository": {
     "type": "git",
