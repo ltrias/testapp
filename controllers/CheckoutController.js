@@ -1,6 +1,6 @@
 "use strict"
 
-let Ad = require('../models/Ad')
+let Product = require('../models/Product')
 let Checkout = require('../models/Checkout');
 let Config = require('../config/Config')
 
@@ -46,10 +46,10 @@ class CheckoutController{
             error += "Must have a customer\n";
         }
 
-        let ads = body.ads;
-        if( !ads || ads.length < 1 ){
+        let products = body.products;
+        if( !products || products.length < 1 ){
             valid = false;
-            error += "Must have ads\n";
+            error += "Must have products\n";
         }
    
         if( !valid ){
@@ -58,8 +58,8 @@ class CheckoutController{
 
         let result = new Checkout(customer);
 
-        for(let ad of ads){
-            result.addAd(new Ad(ad, Config.basePrices[ad]));
+        for(let p of products){
+            result.addProduct(new Product(p, Config.basePrices[p]));
         }
 
         return result;
@@ -72,22 +72,22 @@ class CheckoutController{
      */
     calculateTotal(chk){
         let total = 0;
-        let adsByType = {};
+        let productsByType = {};
 
-        chk.ads.map((ad) => {
-            let currentAds = adsByType[ad.type];
+        chk.products.map((p) => {
+            let currentProducts = productsByType[p.type];
 
-            if( !currentAds ){
-                adsByType[ad.type] = [ad];
+            if( !currentProducts ){
+                productsByType[p.type] = [p];
             }else{
-                currentAds = currentAds.concat(ad);
-                adsByType[ad.type] = currentAds;
+                currentProducts = currentProducts.concat(p);
+                productsByType[p.type] = currentProducts;
             }
         });
 
         let specialConditions = Config.specialConditions[chk.customer];
 
-        for(let key of Object.keys(adsByType)){
+        for(let key of Object.keys(productsByType)){
             let specialCondition = null;
 
             if( specialConditions ){
@@ -95,9 +95,9 @@ class CheckoutController{
             }
 
             if( specialCondition ){
-                total += specialCondition.calculateValue(adsByType[key], Config.basePrices[key]);
+                total += specialCondition.calculateValue(productsByType[key], Config.basePrices[key]);
             }else{
-                total += adsByType[key].length * Config.basePrices[key];
+                total += productsByType[key].length * Config.basePrices[key];
             }
         }
 

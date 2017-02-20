@@ -1,6 +1,6 @@
 CheckoutController = require('../../controllers/CheckoutController');
 Checkout = require('../../models/Checkout');
-Ad = require('../../models/Ad');
+Product = require('../../models/Product');
 Config = require('../../config/Config');
 
 let controller = new CheckoutController();
@@ -20,13 +20,13 @@ test('Try to checkout with empty customer', () => {
 test('Try to checkout without ads', () => {
     expect(() => {
         controller.validateData({"customer":"customer"});
-    }).toThrow(/Must have ads/);
+    }).toThrow(/Must have products/);
 });
 
 test('Try to checkout with empty ads', () => {
     expect(() => {
         controller.validateData({"customer":"customer", "ads":[]});
-    }).toThrow(/Must have ads/);
+    }).toThrow(/Must have products/);
 });
 
 test('Successful data validation',() => {
@@ -76,10 +76,10 @@ test('Calculate total with mixed special conditions',() => {
 
 function createCheckout(customer){
     let result = new Checkout(customer);
-    let ads = Array.from(arguments).slice(1);
+    let products = Array.from(arguments).slice(1);
 
-    for(let ad of ads){
-        result.addAd(new Ad(ad, Config.basePrices[ad]));
+    for(let p of products){
+        result.addProduct(new Product(products, Config.basePrices[p]));
     }
 
     return result;

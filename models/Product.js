@@ -1,14 +1,14 @@
 "use strict"
 
-const VALID_TYPES = ['classic', 'standout', 'premium'];
+const VALID_TYPES = ['classic', 'standout', 'premium', 'jora_membership'];
 
 /**
- * Represents an ad.
+ * Represents an product.
  * 
  * Type and value are the only attributes necessary for the test purpose,
  * in real use cases other attributes would be needed. 
  */
-class Ad{
+class Product{
     constructor(type, value){
         if( !valid(type) ){
             throw 'Unknown ad type: ' + type;
@@ -33,4 +33,4 @@ function valid(type){
     return type && VALID_TYPES.indexOf(type.toLowerCase()) != -1;
 }
 
-module.exports = Ad;
+module.exports = Product;

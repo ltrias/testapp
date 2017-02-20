@@ -30,7 +30,8 @@ var Config = {
     basePrices:{
         "classic": 269.99,
         "standout": 322.99,
-        "premium": 394.99
+        "premium": 394.99,
+        "jora_membership": 99
     }
 }
 

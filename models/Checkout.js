@@ -6,12 +6,12 @@
 class Checkout{
     constructor(customer){
         this.customer = customer;
-        this.ads = [];
+        this.product = [];
         this.total = 0.0;
     }
 
-    addAd(ad){
-        this.ads = this.ads.concat(ad);
+    addProduct(product){
+        this.product = this.ads.concat(product);
     }
 }
 
