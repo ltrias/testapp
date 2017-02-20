@@ -35,7 +35,8 @@ var Config = {
 
     db: {
         host: 'mysql',
-        user: 'tsk'
+        user: 'tsk',
+        password: 'tsk'
     }
 }
 

@@ -1,0 +1,19 @@
+version: "2"
+services:
+    tsk:
+        build: .
+        volumes:
+            - ./:/usr/src/app
+        ports:
+            - "9999:9999"
+        depends_on: 
+            - mysql
+    mysql:
+        image: mysql
+        environment:
+            - MYSQL_ROOT_PASSWORD="root"
+            - MYSQL_DATABASE="tsk"
+            - MYSQL_USER="tsk"
+            - MYSQL_PASSWORD="tsk"
+        volumes:
+            - ./sql:/docker-entrypoint-initdb.d

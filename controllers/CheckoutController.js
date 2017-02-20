@@ -3,16 +3,20 @@
 let Ad = require('../models/Ad')
 let Checkout = require('../models/Checkout');
 let Config = require('../config/Config')
-let Dao = require('../dao/CommercialConditionDAO');
+var CommercialConditionDAO = require('../dao/CommercialConditionDAO');
 
 /**
  * Handles checkout requests
  */
 class CheckoutController{
+    constructor(){
+        this.dao = new CommercialConditionDAO();
+    }
+
     handle(req, res){
         console.log('Checkout request received');
 
-        dao.soma();
+        this.dao.soma();
 
         if( !req.is('json') ){
             res.sendStatus(415);
