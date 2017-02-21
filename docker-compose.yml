@@ -12,7 +12,7 @@ services:
         image: mysql
         environment:
             - MYSQL_ROOT_PASSWORD="root"
-            - MYSQL_DATABASE="tsk"
+            - MYSQL_DATABASE=tsk
             - MYSQL_USER="tsk"
             - MYSQL_PASSWORD="tsk"
         volumes:

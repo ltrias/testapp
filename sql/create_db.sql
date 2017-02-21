@@ -1,4 +1,3 @@
-create database if not exists tsk;
 use tsk;
 
 create user 'tsk' identified by 'tsk';
