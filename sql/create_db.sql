@@ -8,3 +8,9 @@ create table products(
     price float(10, 2),
     primary key(name)
 );
+
+insert into products(name, price) values 
+('classic', 269.99), 
+('standout', 322.99),
+('premium', 394.99),
+('jora membership', 99.00);
